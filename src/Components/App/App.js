@@ -20,7 +20,18 @@ import Playlist from '../Playlist/Playlist';
           {name: 'PlaylistName3', artist: 'PlaylistArtist3', album: 'PlaylistAlbum3', id: 6}
         ]
       }
+      this.addTrack = this.addTrack.bind(this);
     }
+ /* Review step 41 if this doesn't work */
+    addTrack(track) {
+      let tracks = this.state.playlistTracks;
+      if (tracks.find(savedTrack => savedTrack.id === track.id)) {
+          return;
+        } else {
+          tracks.push(track);
+          this.setState({playlistTracks: tracks});
+        }
+      }
 
     render() {
       return (
@@ -29,7 +40,7 @@ import Playlist from '../Playlist/Playlist';
           <div className="App">
             <SearchBar />
             <div className="App-playlist">
-              <SearchResults searchResults={this.state.searchResults}/>
+              <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
               <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
             </div>
           </div>
