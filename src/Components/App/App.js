@@ -21,7 +21,9 @@ import Playlist from '../Playlist/Playlist';
         ]
       }
       this.addTrack = this.addTrack.bind(this);
+      this.removeTrack = this.removeTrack.bind(this);
     }
+
  /* Review step 41 if this doesn't work */
     addTrack(track) {
       let tracks = this.state.playlistTracks;
@@ -33,6 +35,14 @@ import Playlist from '../Playlist/Playlist';
         }
       }
 
+    removeTrack(track) {
+      let tracks = this.state.playlistTracks;
+      if (tracks.filter(currentTrack => currentTrack.id !== track.id)) {
+        tracks.pop(track)
+        this.setState({playlistTracks: tracks});
+      }
+    }
+
     render() {
       return (
         <div>
@@ -41,7 +51,8 @@ import Playlist from '../Playlist/Playlist';
             <SearchBar />
             <div className="App-playlist">
               <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
-              <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
+              <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}
+              onRemove={this.removeTrack} />
             </div>
           </div>
         </div>
